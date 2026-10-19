@@ -1,0 +1,11 @@
+# Use only when the task explicitly forbids dependency changes.
+version: 1
+checks:
+  - id: tests
+    kind: command
+    command: npm
+    args: [run, test, --, --run]
+git:
+  enabled: true
+  base: HEAD
+  forbidden: [package-lock.json, package.json, "**/.env", "**/.env.*"]

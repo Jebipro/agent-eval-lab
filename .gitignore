@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.agent-eval/
+*.tgz
+coverage/
+.ci-results/
+.env
+.env.*
+!.env.example
+.npmrc
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

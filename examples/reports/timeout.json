@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "213082c5-f1c9-4321-87f3-0d10ca58bc7c",
+    "startedAt": "2026-10-18T08:51:09.025Z",
+    "endedAt": "2026-10-18T08:51:09.436Z",
+    "durationMs": 411
+  },
+  "project": {
+    "name": "agent-eval-examples-C4fvfy"
+  },
+  "status": "error",
+  "exitCode": 2,
+  "score": 0,
+  "scoreComplete": false,
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "error": 1,
+    "skipped": 0,
+    "required": 1,
+    "optional": 0,
+    "total": 1,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "timeout",
+      "label": "timeout",
+      "kind": "command",
+      "required": true,
+      "status": "error",
+      "durationMs": 410,
+      "exitCode": 1,
+      "reason": "Timed out after 100ms",
+      "command": "node",
+      "args": [
+        "-e",
+        "setInterval(()=>{},1000)"
+      ],
+      "timedOut": true,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": false,
+    "baseRef": null,
+    "baseSha": null,
+    "capturedAt": "2026-10-18T08:51:09.025Z",
+    "timing": "before-commands",
+    "changes": [],
+    "stats": {
+      "files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

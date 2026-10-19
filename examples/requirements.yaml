@@ -1,0 +1,18 @@
+version: 1
+name: explicit-requirements
+checks:
+  - id: tests
+    kind: command
+    command: npm
+    args: [run, test, --, --run]
+  - id: typecheck
+    kind: command
+    command: npm
+    args: [run, typecheck]
+  - id: requirements
+    label: Explicit requirements
+    kind: command
+    command: npm
+    args: [run, "check:requirements"]
+git:
+  enabled: false

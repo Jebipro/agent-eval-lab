@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "5dc40373-fa38-43a6-86ab-5038bb317887",
+    "startedAt": "2026-10-18T08:51:06.640Z",
+    "endedAt": "2026-10-18T08:51:07.689Z",
+    "durationMs": 1049
+  },
+  "project": {
+    "name": "agent-eval-examples-C4fvfy"
+  },
+  "status": "passed",
+  "exitCode": 0,
+  "score": 100,
+  "scoreComplete": true,
+  "summary": {
+    "pass": 1,
+    "fail": 0,
+    "error": 0,
+    "skipped": 0,
+    "required": 1,
+    "optional": 0,
+    "total": 1,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "requirements",
+      "label": "requirements",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 1048,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "check:requirements"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 check:requirements\n> node requirements.mjs\n\nRequired public add function is present.\n",
+      "stderr": "",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": false,
+    "baseRef": null,
+    "baseSha": null,
+    "capturedAt": "2026-10-18T08:51:06.640Z",
+    "timing": "before-commands",
+    "changes": [],
+    "stats": {
+      "files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

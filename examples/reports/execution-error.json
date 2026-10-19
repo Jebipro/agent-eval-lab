@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "40e1c161-e41d-47eb-a364-3a5dcedabb1e",
+    "startedAt": "2026-10-18T08:51:08.338Z",
+    "endedAt": "2026-10-18T08:51:08.559Z",
+    "durationMs": 221
+  },
+  "project": {
+    "name": "agent-eval-examples-C4fvfy"
+  },
+  "status": "error",
+  "exitCode": 2,
+  "score": 0,
+  "scoreComplete": false,
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "error": 1,
+    "skipped": 0,
+    "required": 1,
+    "optional": 0,
+    "total": 1,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "missing",
+      "label": "missing",
+      "kind": "command",
+      "required": true,
+      "status": "error",
+      "durationMs": 220,
+      "exitCode": 1,
+      "reason": "Could not start: spawn agent-eval-missing-command-12345 ENOENT",
+      "command": "agent-eval-missing-command-12345",
+      "args": [],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "",
+      "stderr": "'agent-eval-missing-command-12345'��(��) ���� �Ǵ� �ܺ� ����, ������ �� �ִ� ���α׷�, �Ǵ�\r\n��ġ ������ �ƴմϴ�.\r\n",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": false,
+    "baseRef": null,
+    "baseSha": null,
+    "capturedAt": "2026-10-18T08:51:08.339Z",
+    "timing": "before-commands",
+    "changes": [],
+    "stats": {
+      "files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

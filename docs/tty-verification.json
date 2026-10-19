@@ -1,0 +1,28 @@
+{
+  "platform": "win32",
+  "shell": "PowerShell with real PTY",
+  "init": {
+    "scenario": "init --force with typed confirmation",
+    "processExitCode": 0,
+    "result": "PASS"
+  },
+  "missingConfigRun": {
+    "status": "passed",
+    "endedAt": "2026-10-18T08:43:20Z",
+    "exitCode": 0,
+    "runId": "038fc340-b227-4852-8e59-9402ebbf9d9a",
+    "result": "PASS"
+  },
+  "ctrlC": {
+    "nativeChildExitCode": 130,
+    "nativeChildSignal": null,
+    "endedAt": "2026-10-18T08:46:27.622Z",
+    "skippedChecks": 2,
+    "result": "PASS",
+    "scoreComplete": false,
+    "exitCode": 130,
+    "runId": "dcfde048-4979-4671-8515-07c885304ce2",
+    "status": "cancelled"
+  },
+  "limitation": "PowerShell itself reacts to Ctrl+C; native CLI exit 130 was independently observed by a Node parent process."
+}

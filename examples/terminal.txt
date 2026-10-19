@@ -1,0 +1,11 @@
+Agent Eval Lab — small-project
+
+PASS    Tests  2.60s [exit 0]
+PASS    Typecheck  2.28s [exit 0]
+
+Git: disabled
+Forbidden files gate: disabled
+Score: 100 / 100 (2 / 2 checks passed)
+Failed: 0; errors: 0; skipped: 0
+Result: PASSED (exit 0)
+JSON report: <project>\.agent-eval\report.json
