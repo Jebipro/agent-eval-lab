@@ -2,11 +2,11 @@
 
 Evaluate a local project's tests, type checks, explicit requirements commands, and Git changes after an AI coding agent or a person edits it.
 
+**v0.1.0 is published on npm:** [agent-eval-lab](https://www.npmjs.com/package/agent-eval-lab). See the [npm release report](docs/NPM_RELEASE_REPORT.md) for the published artifact, registry installation checks, and remaining verification limits.
+
 ## Quick Start
 
-**Publication status: [public GitHub source](https://github.com/Jebipro/agent-eval-lab), v0.1 release candidate; not published to npm.** The following is the ordinary user path **after npm publication**, without cloning or building Agent Eval Lab:
-
-The repository is Public with default branch `main`. See [publication and CI verification](docs/GITHUB_RELEASE_READINESS.md) for actual commit/run evidence and remaining npm release steps.
+Run these commands in the project you want to evaluate. You do not need to clone or build Agent Eval Lab:
 
 ```sh
 npx agent-eval-lab init
@@ -31,21 +31,6 @@ Score: 100 / 100 (2 / 2 checks passed)
 Failed: 0; errors: 0; skipped: 0
 Result: PASSED (exit 0)
 ```
-
-The npm name lookup returned E404 on 2026-10-18 (Asia/Seoul). That does **not** reserve the name or prove publishing rights. Recheck before publishing. Do not run bare `npx agent-eval-lab` to validate this unpublished local implementation.
-
-## Use the local release package now
-
-The release verification produces `agent-eval-lab-0.1.0.tgz`. In a separate consumer directory, use its **absolute path**:
-
-```sh
-npm install --omit=dev /absolute/path/to/agent-eval-lab-0.1.0.tgz
-./node_modules/.bin/agent-eval-lab --help
-./node_modules/.bin/agent-eval-lab init /absolute/path/to/prepared-project --yes
-./node_modules/.bin/agent-eval-lab run /absolute/path/to/prepared-project --non-interactive
-```
-
-PowerShell uses `& .\node_modules\.bin\agent-eval-lab.cmd ...`. Quote paths containing spaces. This installation uses compiled JavaScript and runtime dependencies; consumers do not install TypeScript to build this tool. An evaluated TypeScript project still needs its own compiler.
 
 ## Configuration
 
@@ -157,7 +142,7 @@ Only run trusted YAML and package scripts: this is **not a sandbox**. Commands i
 
 Windows npm.cmd is resolved to its installed npm-cli.js and run with Node so arguments bypass the batch shim. Unrecognized npm shims and metacharacter arguments to other batch files are rejected; configure a native executable/JS entry explicitly in those cases. Cleanup uses the absolute SystemRoot taskkill path, bounded waits, and a direct-child kill fallback. Failed tree cleanup is reported as an error even when the direct child exits; unconfirmed termination is never described as successful cleanup. Cancellation still returns overall exit 130, with cleanup errors retained in the check reason. An unconfirmed tree may require manual cleanup.
 
-## GitHub Actions for consumers (after publication)
+## GitHub Actions for consumers
 
 ```yaml
 name: Evaluate
@@ -186,7 +171,7 @@ jobs:
           include-hidden-files: true
 ```
 
-Commit a reviewed `agent-eval.yaml` before running this workflow. npm's `npx --yes` accepts package installation; the tool's `--non-interactive` disables its prompts. After publication, pin an actually verified exact package version (`agent-eval-lab@<verified-version>`) for reproducibility. Failures remain failures; artifact upload runs even when evaluation fails. No commenting token or deployment is required.
+Commit a reviewed `agent-eval.yaml` before running this workflow. npm's `npx --yes` accepts package installation; the tool's `--non-interactive` disables its prompts. Pin an actually verified exact package version (`agent-eval-lab@<verified-version>`) for reproducibility. Failures remain failures; artifact upload runs even when evaluation fails. No commenting token or deployment is required.
 
 ## Development and contribution
 
@@ -206,3 +191,16 @@ npm run test:package
 Run `npm run examples` to regenerate example reports from real temporary fixtures with machine-specific paths redacted. **Actual GitHub Actions verification passed on Windows and Ubuntu with Node 22.23.3 and 24.21.0:** Windows 89 passed / 2 OS skips; Ubuntu 81 passed / 10 OS skips. All four jobs also passed strict typecheck, build, pack, and external consumer installation/CLI checks. See [commit-specific CI evidence and limitations](docs/GITHUB_RELEASE_READINESS.md). The [remediation verification](docs/REMEDIATION_REPORT.md) and [initial verification](docs/verification.md) preserve historical local results. Contributions should add a focused test for changed user-visible behavior and keep fixtures outside the tool's TypeScript build.
 
 See [architecture](docs/architecture.md) and [release procedure](docs/release.md). MIT licensed. v0.1 excludes agent orchestration, LLM judging, baseline-report comparison, automatic dependency installation/code modification, SaaS, and web UI. A GitHub Pages viewer consuming this JSON is a future possibility only.
+
+### Test a local package
+
+The release verification produces `agent-eval-lab-0.1.0.tgz`. In a separate consumer directory, use its **absolute path**:
+
+```sh
+npm install --omit=dev /absolute/path/to/agent-eval-lab-0.1.0.tgz
+./node_modules/.bin/agent-eval-lab --help
+./node_modules/.bin/agent-eval-lab init /absolute/path/to/prepared-project --yes
+./node_modules/.bin/agent-eval-lab run /absolute/path/to/prepared-project --non-interactive
+```
+
+PowerShell uses `& .\node_modules\.bin\agent-eval-lab.cmd ...`. Quote paths containing spaces. This installation uses compiled JavaScript and runtime dependencies; consumers do not install TypeScript to build this tool. An evaluated TypeScript project still needs its own compiler.
