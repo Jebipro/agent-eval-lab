@@ -1,10 +1,27 @@
 import { mkdtemp, readFile, writeFile, mkdir, cp, rm, access } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve, relative, dirname, isAbsolute } from 'node:path';
+import { join, resolve, relative, dirname, isAbsolute, sep, win32, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import spawn from 'cross-spawn';
 const source = resolve('.');
+function isOutside(base, candidate, paths = { relative, isAbsolute, sep }) {
+  const path = paths.relative(base, candidate);
+  // Different Windows drives produce an absolute path, not a '..' prefix.
+  return paths.isAbsolute(path) || path === '..' || path.startsWith(`..${paths.sep}`);
+}
+// Cross-platform regression checks run before every real consumer installation.
+for (const [paths, base, candidate, expected] of [
+  [win32, 'D:/checkout/project', 'C:/temp/consumer', true],
+  [win32, 'D:/checkout/project', 'D:/checkout/consumer', true],
+  [win32, 'D:/checkout/project', 'D:/checkout', true],
+  [win32, 'D:/checkout/project', 'D:/checkout/project', false],
+  [win32, 'D:/checkout/project', 'D:/checkout/project/consumer', false],
+  [win32, 'D:/checkout/project', 'D:/checkout/project/..consumer', false],
+  [posix, '/checkout/project', '/tmp/consumer', true],
+  [posix, '/checkout/project', '/checkout/project', false],
+  [posix, '/checkout/project', '/checkout/project/..consumer', false]
+]) assert.equal(isOutside(base, candidate, paths), expected, 'Consumer boundary regression');
 const temporary = await mkdtemp(join(tmpdir(), 'agent-eval-consumer 한글 space-'));
 const run = (cmd, args, cwd) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, { cwd, env: { ...process.env, CI: 'true' }, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
@@ -13,7 +30,7 @@ const run = (cmd, args, cwd) => new Promise((resolve, reject) => {
 const success = async (cmd, args, cwd) => { const r = await run(cmd, args, cwd); assert.equal(r.code, 0, `${cmd} ${args.join(' ')}\n${r.stdout}\n${r.stderr}`); return r; };
 const timings = { os: process.platform, node: process.version, packageCache: 'npm cache allowed; no cold-cache guarantee', registryFirstDownloadMs: null };
 try {
-  assert(relative(source, temporary).startsWith('..'), 'Consumer must be outside source repository');
+  assert(isOutside(source, temporary), 'Consumer must be outside source repository');
   const pack = await success('npm', ['pack', '--json'], source);
   const packed = JSON.parse(pack.stdout.slice(pack.stdout.lastIndexOf('\n[') + 1))[0];
   const tarball = resolve(source, packed.filename);
