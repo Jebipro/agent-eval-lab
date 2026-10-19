@@ -4,9 +4,9 @@ Evaluate a local project's tests, type checks, explicit requirements commands, a
 
 ## Quick Start
 
-**Publication status: local release candidate; not published to npm or GitHub by this project.** The following is the ordinary user path **after publication**, without cloning or building Agent Eval Lab:
+**Publication status: [public GitHub source](https://github.com/Jebipro/agent-eval-lab), v0.1 release candidate; not published to npm.** The following is the ordinary user path **after npm publication**, without cloning or building Agent Eval Lab:
 
-The owner has selected `Jebipro/agent-eval-lab` (Public, `main`) as the GitHub target; creation and first push still await approval. Package URLs point to that intended destination and do not establish that it exists. See [publication and CI readiness](docs/GITHUB_RELEASE_READINESS.md).
+The repository is Public with default branch `main`. See [publication and CI verification](docs/GITHUB_RELEASE_READINESS.md) for actual commit/run evidence and remaining npm release steps.
 
 ```sh
 npx agent-eval-lab init
@@ -190,7 +190,7 @@ Commit a reviewed `agent-eval.yaml` before running this workflow. npm's `npx --y
 
 ## Development and contribution
 
-Until the selected repository is created, use this source folder. After creation, clone `https://github.com/Jebipro/agent-eval-lab.git`. Then:
+Clone `https://github.com/Jebipro/agent-eval-lab.git`, or use this source folder. Then:
 
 ```sh
 npm ci
@@ -203,6 +203,6 @@ npm run test:package
 
 `npm test` is non-watch Vitest. Unit tests can run with `npm run test:unit` without a network or a fresh install. Integration tests use the already installed development tools in temporary fixtures. `test:package` packs the current source, installs the exact tarball outside the repository with `--omit=dev`, installs independent fixture dependencies, and runs the installed bin. A configured npm registry or warm cache is needed for installation. It does not use bare npx or a source runner. It verifies exit 0/1/2, schema, JSON-only stdout, and the prepared-fixture two-minute target. [Recorded package verification](docs/package-verification.json) separates dependency/install times from init/run time; first cold registry download is not measured.
 
-Run `npm run examples` to regenerate example reports from real temporary fixtures with machine-specific paths redacted. The tool CI defines Linux/Windows and Node 22/24 jobs. **Actually verified locally: Windows / Node 24.16.0, 89 passed and 2 OS skips. Linux, Node 22 and all remote jobs remain NOT RUN.** See [remediation verification](docs/REMEDIATION_REPORT.md) and [current CI status](docs/GITHUB_RELEASE_READINESS.md); the [initial verification](docs/verification.md) is historical. Contributions should add a focused test for changed user-visible behavior and keep fixtures outside the tool's TypeScript build.
+Run `npm run examples` to regenerate example reports from real temporary fixtures with machine-specific paths redacted. **Actual GitHub Actions verification passed on Windows and Ubuntu with Node 22.23.3 and 24.21.0:** Windows 89 passed / 2 OS skips; Ubuntu 81 passed / 10 OS skips. All four jobs also passed strict typecheck, build, pack, and external consumer installation/CLI checks. See [commit-specific CI evidence and limitations](docs/GITHUB_RELEASE_READINESS.md). The [remediation verification](docs/REMEDIATION_REPORT.md) and [initial verification](docs/verification.md) preserve historical local results. Contributions should add a focused test for changed user-visible behavior and keep fixtures outside the tool's TypeScript build.
 
 See [architecture](docs/architecture.md) and [release procedure](docs/release.md). MIT licensed. v0.1 excludes agent orchestration, LLM judging, baseline-report comparison, automatic dependency installation/code modification, SaaS, and web UI. A GitHub Pages viewer consuming this JSON is a future possibility only.

@@ -1,6 +1,6 @@
 # Local release procedure
 
-Status: **unpublished**. No GitHub repository creation, remote push, or npm publish was performed. The owner selected `Jebipro/agent-eval-lab` (Public, default branch `main`); metadata now uses that intended URL. Creation and first push require separate approval. See [current readiness and CI status](GITHUB_RELEASE_READINESS.md). `npm view agent-eval-lab name version --json` returned E404 on 2026-10-18 Asia/Seoul; this is not a reservation, ownership check, or guarantee that publication will succeed.
+Status: **GitHub source public; npm unpublished**. The owner authorized creation and push to [Jebipro/agent-eval-lab](https://github.com/Jebipro/agent-eval-lab) (Public, default branch `main`), and those operations are complete. See [current readiness and CI evidence](GITHUB_RELEASE_READINESS.md). npm publish, GitHub Release and Pages were not performed. `npm view agent-eval-lab name version --json` returned E404 on 2026-10-18 Asia/Seoul; this is not a reservation, ownership check, or guarantee that publication will succeed.
 
 1. Run `npm ci`, `npm run typecheck`, `npm test`, `npm run build`, `npm pack --dry-run`, `npm run test:package`.
 2. Inspect `docs/package-verification.json`, `docs/REMEDIATION_REPORT.md`, `docs/GITHUB_RELEASE_READINESS.md`, and the tarball file list. The initial `docs/verification.md` is historical. Build output, report JSON Schema, README, LICENSE, and package metadata belong in the package. Fixtures, tests, reports and source do not.
