@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "2d7faf1e-5d1d-439d-8a64-ab2de122725c",
+    "startedAt": "2026-10-18T08:50:42.569Z",
+    "endedAt": "2026-10-18T08:50:50.289Z",
+    "durationMs": 7720
+  },
+  "project": {
+    "name": "small-project"
+  },
+  "status": "passed",
+  "exitCode": 0,
+  "score": 100,
+  "scoreComplete": true,
+  "summary": {
+    "pass": 2,
+    "fail": 0,
+    "error": 0,
+    "skipped": 0,
+    "required": 2,
+    "optional": 0,
+    "total": 2,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "tests",
+      "label": "Tests",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 5279,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "test",
+        "--",
+        "--run"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 test\n> vitest --run\n\n\n RUN  v4.0.18 <project>\n\n ✓ src/add.test.ts (1 test) 3ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:50:46\n   Duration  1.41s (transform 152ms, setup 0ms, import 214ms, tests 3ms, environment 0ms)\n\n",
+      "stderr": "",
+      "outputTruncated": false
+    },
+    {
+      "id": "typecheck",
+      "label": "Typecheck",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 2441,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 typecheck\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": false,
+    "baseRef": null,
+    "baseSha": null,
+    "capturedAt": "2026-10-18T08:50:42.569Z",
+    "timing": "before-commands",
+    "changes": [],
+    "stats": {
+      "files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

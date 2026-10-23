@@ -1,0 +1,230 @@
+{
+  "purpose": "Public repository test data, not a public Viewer sample catalog",
+  "hashPolicy": "sha256-utf8-lf",
+  "entries": [
+    {
+      "file": "official/success-no-git.json",
+      "provenance": "published-official-example",
+      "sha256": "f99f1fb06148eed9c10d3cacdb9684cf7d1ee07edb99947edade8640cb9bd2e2",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "source": "examples/reports/success-no-git.json",
+      "sourceSha256": "f99f1fb06148eed9c10d3cacdb9684cf7d1ee07edb99947edade8640cb9bd2e2",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 2,
+        "total": 2
+      }
+    },
+    {
+      "file": "official/test-failure.json",
+      "provenance": "published-official-example",
+      "sha256": "ed27f814e768d7b9c4b11a0d0f8f5a1d82025ba8eed7bc7dba8f5ff487d59b88",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "source": "examples/reports/test-failure.json",
+      "sourceSha256": "ed27f814e768d7b9c4b11a0d0f8f5a1d82025ba8eed7bc7dba8f5ff487d59b88",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "failed",
+        "score": 50,
+        "pass": 1,
+        "total": 2
+      }
+    },
+    {
+      "file": "official/type-error.json",
+      "provenance": "published-official-example",
+      "sha256": "199a27eac27a2bea40896f39b7d779825a9e4d4ad3f65c47794fd6b7cb24f93a",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "source": "examples/reports/type-error.json",
+      "sourceSha256": "199a27eac27a2bea40896f39b7d779825a9e4d4ad3f65c47794fd6b7cb24f93a",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "failed",
+        "score": 0,
+        "pass": 0,
+        "total": 2
+      }
+    },
+    {
+      "file": "official/execution-error.json",
+      "provenance": "published-official-example",
+      "sha256": "b8ee31be1a35e3e7c47ef95b0cb51fb211f4030a650dbc3dd7f1f06373036714",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "source": "examples/reports/execution-error.json",
+      "sourceSha256": "b8ee31be1a35e3e7c47ef95b0cb51fb211f4030a650dbc3dd7f1f06373036714",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "error",
+        "score": 0,
+        "pass": 0,
+        "total": 1
+      }
+    },
+    {
+      "file": "official/timeout.json",
+      "provenance": "published-official-example",
+      "sha256": "4aa1fd4a1c5f92683c0c2877b560b7ead0186e3365ef2b639103285e5c422ec6",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "source": "examples/reports/timeout.json",
+      "sourceSha256": "4aa1fd4a1c5f92683c0c2877b560b7ead0186e3365ef2b639103285e5c422ec6",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "error",
+        "score": 0,
+        "pass": 0,
+        "total": 1
+      }
+    },
+    {
+      "file": "official/forbidden-file.json",
+      "provenance": "published-official-example",
+      "sha256": "14bc1831fc616014ebffc80bf59787e85fcc857d0834e4d4bb9c23ae5e258478",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "source": "examples/reports/forbidden-file.json",
+      "sourceSha256": "14bc1831fc616014ebffc80bf59787e85fcc857d0834e4d4bb9c23ae5e258478",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "failed",
+        "score": 67,
+        "pass": 2,
+        "total": 3
+      }
+    },
+    {
+      "file": "official/requirements.json",
+      "provenance": "published-official-example",
+      "sha256": "308788d1df3266c694c605f5fb20bda8db3f8048963c9db4337dddc2d5c04885",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "source": "examples/reports/requirements.json",
+      "sourceSha256": "308788d1df3266c694c605f5fb20bda8db3f8048963c9db4337dddc2d5c04885",
+      "review": "Already published official example; only physical CRLF line endings normalized to LF. Not a new execution.",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 1,
+        "total": 1
+      }
+    },
+    {
+      "file": "synthetic/scenario-normal.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "64e87a5ace1284bf6a1f9a58e6dedafb8c77cedb1dc9a7195d9b29e8ae54a269",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "review": "Hand-authored semantic counterpart; no private report, UUID, timestamp, SHA or log was copied. Not a mini-lang execution.",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 3,
+        "total": 3
+      }
+    },
+    {
+      "file": "synthetic/scenario-test-failure.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "ebb6a9ca2dc8e738119e6bc0b8a07c26d5277d042e482b5a163bddef5896626a",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "review": "Hand-authored semantic counterpart; no private report, UUID, timestamp, SHA or log was copied. Not a mini-lang execution.",
+      "expected": {
+        "status": "failed",
+        "score": 67,
+        "pass": 2,
+        "total": 3
+      }
+    },
+    {
+      "file": "synthetic/scenario-forbidden-change.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "ee09371037523ccb54d0922510b9f957fa1eb38400513d68427b34ced12d5557",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "review": "Hand-authored semantic counterpart; no private report, UUID, timestamp, SHA or log was copied. Not a mini-lang execution.",
+      "expected": {
+        "status": "failed",
+        "score": 75,
+        "pass": 3,
+        "total": 4
+      }
+    },
+    {
+      "file": "synthetic/scenario-restored.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "f768a21f4acafabdbbf248169d481aed608f7428fc9d35bf1b8e9f0d30b86622",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "review": "Hand-authored semantic counterpart; no private report, UUID, timestamp, SHA or log was copied. Not a mini-lang execution.",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 4,
+        "total": 4
+      }
+    },
+    {
+      "file": "synthetic/setup-error.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "0c4c14788c984140a538710d2439920b64ba957c7e2a3cf30e71711312074291",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "review": "Existing synthetic contract test. Not an actual CLI execution.",
+      "expected": {
+        "status": "error",
+        "score": null,
+        "pass": 0,
+        "total": 0
+      }
+    },
+    {
+      "file": "synthetic/cancelled.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "b4465c37395e9a62e54ee09f730bfdfe4c3f2cfc82db38d1032307f86b7bf3b8",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "review": "Existing synthetic contract test. Not an actual CLI execution.",
+      "expected": {
+        "status": "cancelled",
+        "score": 0,
+        "pass": 0,
+        "total": 2
+      }
+    },
+    {
+      "file": "synthetic/optional-failure.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "919eeae69fc6fde270253fe29135e1313d0d70ae15afbf4bb1c53f2a521272f0",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": true,
+      "review": "Existing synthetic contract test. Not an actual CLI execution.",
+      "expected": {
+        "status": "passed",
+        "score": 50,
+        "pass": 1,
+        "total": 2
+      }
+    },
+    {
+      "file": "synthetic/truncated-log.json",
+      "provenance": "synthetic-contract-test",
+      "sha256": "83408e13deab4e6ef168254f94cd8b394f0cfed31f745319203b3c123d274209",
+      "publicRepositoryEligible": true,
+      "publicSampleApproved": false,
+      "review": "Existing synthetic contract test. Not an actual CLI execution.",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 2,
+        "total": 2
+      }
+    }
+  ]
+}

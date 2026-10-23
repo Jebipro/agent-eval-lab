@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "startedAt": "2026-01-01T00:00:00.000Z",
+    "endedAt": "2026-01-01T00:00:00.000Z",
+    "durationMs": 0
+  },
+  "project": {
+    "name": "SYNTHETIC UI CONTRACT FIXTURE — not an actual run"
+  },
+  "status": "error",
+  "exitCode": 2,
+  "score": null,
+  "scoreComplete": false,
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "error": 0,
+    "skipped": 0,
+    "required": 0,
+    "optional": 0,
+    "total": 0,
+    "optionalFailures": 0
+  },
+  "checks": [],
+  "git": null,
+  "warnings": [],
+  "errors": [
+    {
+      "code": "SYNTHETIC_CONFIG",
+      "message": "Synthetic configuration error",
+      "hint": "Test fixture only"
+    }
+  ]
+}

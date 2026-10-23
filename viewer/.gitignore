@@ -1,0 +1,9 @@
+node_modules/
+dist/
+src/generated/
+.verification/
+test-results/
+playwright-report/
+*.tsbuildinfo
+# Test-only real reports have NOT been approved for public source publication.
+tests/fixtures/real/

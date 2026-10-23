@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "startedAt": "2026-01-01T00:00:00.000Z",
+    "endedAt": "2026-01-01T00:00:00.000Z",
+    "durationMs": 0
+  },
+  "project": {
+    "name": "SYNTHETIC scenario normal — not an actual run"
+  },
+  "status": "passed",
+  "exitCode": 0,
+  "score": 100,
+  "scoreComplete": true,
+  "summary": {
+    "pass": 3,
+    "fail": 0,
+    "error": 0,
+    "skipped": 0,
+    "required": 3,
+    "optional": 0,
+    "total": 3,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "tests",
+      "label": "Synthetic tests",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 0,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "tests"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "SYNTHETIC: no command was executed.",
+      "stderr": "",
+      "outputTruncated": false
+    },
+    {
+      "id": "typecheck",
+      "label": "Synthetic typecheck",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 0,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "SYNTHETIC: no command was executed.",
+      "stderr": "",
+      "outputTruncated": false
+    },
+    {
+      "id": "explicit-any",
+      "label": "Synthetic explicit-any",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 0,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "explicit-any"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "SYNTHETIC: no command was executed.",
+      "stderr": "",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": true,
+    "baseRef": "HEAD",
+    "baseSha": "0000000000000000000000000000000000000000",
+    "capturedAt": "2026-01-01T00:00:00.000Z",
+    "timing": "before-commands",
+    "changes": [
+      {
+        "path": "agent-eval.yaml",
+        "oldPath": null,
+        "status": "??",
+        "additions": null,
+        "deletions": null,
+        "binary": false
+      }
+    ],
+    "stats": {
+      "files": 1,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": true
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

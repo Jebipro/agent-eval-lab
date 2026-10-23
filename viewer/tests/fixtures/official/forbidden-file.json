@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "1a781c5a-ba28-4859-9dae-b6158f15ed00",
+    "startedAt": "2026-10-18T08:51:10.883Z",
+    "endedAt": "2026-10-18T08:51:16.275Z",
+    "durationMs": 5392
+  },
+  "project": {
+    "name": "small-project"
+  },
+  "status": "failed",
+  "exitCode": 1,
+  "score": 67,
+  "scoreComplete": true,
+  "summary": {
+    "pass": 2,
+    "fail": 1,
+    "error": 0,
+    "skipped": 0,
+    "required": 3,
+    "optional": 0,
+    "total": 3,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "tests",
+      "label": "Tests",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 1971,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "test",
+        "--",
+        "--run"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 test\n> vitest --run\n\n\n RUN  v4.0.18 <project>\n\n ✓ src/add.test.ts (1 test) 2ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:51:12\n   Duration  453ms (transform 85ms, setup 0ms, import 131ms, tests 2ms, environment 0ms)\n\n",
+      "stderr": "",
+      "outputTruncated": false
+    },
+    {
+      "id": "typecheck",
+      "label": "Typecheck",
+      "kind": "command",
+      "required": true,
+      "status": "pass",
+      "durationMs": 2889,
+      "exitCode": 0,
+      "reason": null,
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 typecheck\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "outputTruncated": false
+    },
+    {
+      "id": "forbidden-files",
+      "label": "Forbidden files",
+      "kind": "forbidden",
+      "required": true,
+      "status": "fail",
+      "durationMs": 531,
+      "exitCode": null,
+      "reason": "Forbidden paths changed; review changes or permitted rules.",
+      "violations": [
+        {
+          "path": ".env.example",
+          "pattern": "**/.env.*"
+        }
+      ]
+    }
+  ],
+  "git": {
+    "enabled": true,
+    "baseRef": "HEAD",
+    "baseSha": "efee6bf48c14a39f9cd591cd6c788d614e8d2b26",
+    "capturedAt": "2026-10-18T08:51:10.884Z",
+    "timing": "before-commands",
+    "changes": [
+      {
+        "path": ".env.example",
+        "oldPath": null,
+        "status": "M",
+        "additions": 1,
+        "deletions": 1,
+        "binary": false
+      },
+      {
+        "path": "agent-eval.yaml",
+        "oldPath": null,
+        "status": "M",
+        "additions": 27,
+        "deletions": 5,
+        "binary": false
+      }
+    ],
+    "stats": {
+      "files": 2,
+      "additions": 28,
+      "deletions": 6,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

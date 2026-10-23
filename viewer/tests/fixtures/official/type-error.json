@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "agent-eval-lab",
+    "version": "0.1.0"
+  },
+  "run": {
+    "id": "333a1294-c169-4139-acb2-dc6a3cdb504a",
+    "startedAt": "2026-10-18T08:51:00.317Z",
+    "endedAt": "2026-10-18T08:51:06.165Z",
+    "durationMs": 5848
+  },
+  "project": {
+    "name": "small-project"
+  },
+  "status": "failed",
+  "exitCode": 1,
+  "score": 0,
+  "scoreComplete": true,
+  "summary": {
+    "pass": 0,
+    "fail": 2,
+    "error": 0,
+    "skipped": 0,
+    "required": 2,
+    "optional": 0,
+    "total": 2,
+    "optionalFailures": 0
+  },
+  "checks": [
+    {
+      "id": "tests",
+      "label": "Tests",
+      "kind": "command",
+      "required": true,
+      "status": "fail",
+      "durationMs": 3755,
+      "exitCode": 1,
+      "reason": "Command exited with code 1",
+      "command": "npm",
+      "args": [
+        "run",
+        "test",
+        "--",
+        "--run"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 test\n> vitest --run\n\n\n RUN  v4.0.18 <project>\n\n ❯ src/add.test.ts (1 test | 1 failed) 8ms\n   × adds positive and negative numbers 6ms\n\n Test Files  1 failed (1)\n      Tests  1 failed (1)\n   Start at  17:51:03\n   Duration  440ms (transform 86ms, setup 0ms, import 133ms, tests 8ms, environment 0ms)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  src/add.test.ts > adds positive and negative numbers\nAssertionError: expected 'bad' to be 5 // Object.is equality\n\n- Expected: \n5\n\n+ Received: \n\"bad\"\n\n ❯ src/add.test.ts:3:70\n      1| import { expect, test } from 'vitest';\n      2| import { add } from './add';\n      3| test('adds positive and negative numbers', () => { expect(add(2, 3)).t…\n       |                                                                      ^\n      4| \n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "outputTruncated": false
+    },
+    {
+      "id": "typecheck",
+      "label": "Typecheck",
+      "kind": "command",
+      "required": true,
+      "status": "fail",
+      "durationMs": 2093,
+      "exitCode": 2,
+      "reason": "Command exited with code 2",
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "timedOut": false,
+      "signal": null,
+      "stdout": "\n> small-project@1.0.0 typecheck\n> tsc --noEmit\n\nsrc/add.ts(1,49): error TS2322: Type 'string' is not assignable to type 'number'.\r\n",
+      "stderr": "",
+      "outputTruncated": false
+    }
+  ],
+  "git": {
+    "enabled": false,
+    "baseRef": null,
+    "baseSha": null,
+    "capturedAt": "2026-10-18T08:51:00.317Z",
+    "timing": "before-commands",
+    "changes": [],
+    "stats": {
+      "files": 0,
+      "additions": 0,
+      "deletions": 0,
+      "incomplete": false
+    }
+  },
+  "warnings": [],
+  "errors": []
+}

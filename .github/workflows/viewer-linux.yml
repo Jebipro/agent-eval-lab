@@ -1,0 +1,126 @@
+name: Viewer Linux compatibility
+
+# LOCAL DRAFT: publication and remote execution require separate approval.
+# This explicit input is an operator confirmation, not proof of data review.
+on:
+  workflow_dispatch:
+    inputs:
+      public_data_reviewed:
+        description: 'Exact source SHA, public fixtures and 7 Examples approved for public CI?'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  viewer:
+    if: ${{ inputs.public_data_reviewed == true }}
+    name: Ubuntu / Node 24 / ${{ matrix.browser }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+    defaults:
+      run:
+        working-directory: viewer
+        shell: bash
+    env:
+      CI: 'true'
+      AEL_FIXTURE_MODE: public
+      VIEWER_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # same pin as CLI CI
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # same pin as CLI CI
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: viewer/package-lock.json
+      - name: Prepare bounded evidence directory and reject private checkout inputs
+        run: |
+          mkdir -p .ci-results
+          node --version | tee .ci-results/environment.log
+          npm --version | tee -a .ci-results/environment.log
+          node --input-type=module <<'NODE'
+          import { existsSync } from 'node:fs';
+          for (const path of ['tests/fixtures/real', '.verification', '../docs/experiments', '../docs/MINI_LANG_FIELD_REPORT.md']) {
+            if (existsSync(path)) throw new Error(`Excluded checkout input exists: ${path}`);
+          }
+          NODE
+      - name: Install Viewer locked dependencies
+        run: npm ci --no-audit --no-fund 2>&1 | tee .ci-results/install.log
+      - name: Confirm installed Playwright matches the lockfile
+        run: |
+          node --input-type=module <<'NODE' | tee -a .ci-results/environment.log
+          import { readFileSync } from 'node:fs';
+          import assert from 'node:assert/strict';
+          const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+          for (const name of ['@playwright/test', 'playwright', 'playwright-core']) {
+            const installed = JSON.parse(readFileSync(`node_modules/${name}/package.json`, 'utf8')).version;
+            assert.equal(installed, lock.packages[`node_modules/${name}`].version);
+            assert.equal(installed, pkg.devDependencies['@playwright/test']);
+            console.log(`${name}: ${installed}`);
+          }
+          NODE
+      - name: Typecheck
+        run: npm run typecheck 2>&1 | tee .ci-results/typecheck.log
+      - name: Public unit tests
+        run: npm test -- --reporter=default --reporter=json --outputFile=.ci-results/unit.json 2>&1 | tee .ci-results/unit.log
+      - name: Production build
+        run: npm run build 2>&1 | tee .ci-results/build.log
+      - name: Install official browser and Linux system dependencies
+        # Use the installed lockfile CLI; no npx fallback or browser cache.
+        run: node node_modules/@playwright/test/cli.js install --with-deps "$VIEWER_BROWSER" 2>&1 | tee .ci-results/browser-install.log
+      - name: Browser process and simple page smoke
+        run: |
+          node --input-type=module <<'NODE' | tee .ci-results/browser-launch.log
+          import { chromium, firefox } from '@playwright/test';
+          import assert from 'node:assert/strict';
+          const name = process.env.VIEWER_BROWSER;
+          assert(['chromium', 'firefox'].includes(name));
+          const browser = await ({ chromium, firefox })[name].launch({ headless: true, ...(name === 'chromium' ? { channel: 'chromium' } : {}) });
+          try {
+            console.log(`${name}: ${browser.version()}`);
+            const page = await browser.newPage();
+            await page.setContent('<!doctype html><title>CI smoke</title><h1>Browser started</h1>');
+            assert.equal(await page.title(), 'CI smoke');
+            assert.equal(await page.locator('h1').textContent(), 'Browser started');
+          } finally { await browser.close(); }
+          NODE
+      - name: Production Worker and Import smoke
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .ci-results/smoke.json
+        run: >-
+          node scripts/run-tests.mjs public browser --config=playwright.compat.config.ts
+          --project="$VIEWER_BROWSER" --grep='production Worker validates.*: normal under project base path$'
+          --reporter=line,json --trace=retain-on-failure --output=test-results/viewer-ci/smoke
+          2>&1 | tee .ci-results/smoke.log
+      - name: Common compatibility suite (currently 66 tests, no zoom extension)
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .ci-results/e2e.json
+        run: >-
+          node scripts/run-tests.mjs public browser --config=playwright.compat.config.ts
+          --project="$VIEWER_BROWSER" --reporter=line,json
+          --trace=retain-on-failure --output=test-results/viewer-ci/common
+          2>&1 | tee .ci-results/e2e.log
+      # Only public/synthetic input is authorized. Traces may contain full DOM,
+      # filenames, request metadata and fixture content. Never upload dist,
+      # .verification, raw private reports or a whole checkout.
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # same pin as CLI CI
+        if: always()
+        with:
+          name: viewer-linux-${{ matrix.browser }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            viewer/.ci-results/*.log
+            viewer/.ci-results/*.json
+            viewer/test-results/viewer-ci/**/trace.zip
+            viewer/test-results/viewer-ci/**/error-context.md
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: warn

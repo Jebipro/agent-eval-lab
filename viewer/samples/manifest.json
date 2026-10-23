@@ -1,0 +1,175 @@
+{
+  "purpose": "User-approved public Examples; publication and CI execution require separate authorization",
+  "hashPolicy": "sha256-utf8-lf",
+  "publicSampleApproved": true,
+  "entries": [
+    {
+      "id": "success",
+      "title": "정상 평가",
+      "description": "테스트와 타입 검사가 통과한 공식 기록입니다. Git 검사는 비활성입니다.",
+      "kind": "official",
+      "source": "tests/fixtures/official/success-no-git.json",
+      "publishedSource": "examples/reports/success-no-git.json",
+      "sha256": "f99f1fb06148eed9c10d3cacdb9684cf7d1ee07edb99947edade8640cb9bd2e2",
+      "expected": {
+        "status": "passed",
+        "score": 100,
+        "pass": 2,
+        "total": 2
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing <project> placeholders preserved; no new field edits. .env.example is only a relative filename.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "failure",
+      "title": "테스트 실패",
+      "description": "실패 사유와 stdout·stderr를 확인할 수 있습니다.",
+      "kind": "official",
+      "source": "tests/fixtures/official/test-failure.json",
+      "publishedSource": "examples/reports/test-failure.json",
+      "sha256": "ed27f814e768d7b9c4b11a0d0f8f5a1d82025ba8eed7bc7dba8f5ff487d59b88",
+      "expected": {
+        "status": "failed",
+        "score": 50,
+        "pass": 1,
+        "total": 2
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing <project> placeholders preserved; no new field edits. .env.example is only a relative filename.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "forbidden",
+      "title": "금지 파일 변경",
+      "description": "명령 검사 통과와 금지 파일 위반이 함께 기록된 사례입니다.",
+      "kind": "official",
+      "source": "tests/fixtures/official/forbidden-file.json",
+      "publishedSource": "examples/reports/forbidden-file.json",
+      "sha256": "14bc1831fc616014ebffc80bf59787e85fcc857d0834e4d4bb9c23ae5e258478",
+      "expected": {
+        "status": "failed",
+        "score": 67,
+        "pass": 2,
+        "total": 3
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing <project> placeholders preserved; no new field edits. .env.example is only a relative filename.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "timeout",
+      "title": "시간 제한 초과",
+      "description": "실행 오류와 불완전 점수를 확인할 수 있습니다.",
+      "kind": "official",
+      "source": "tests/fixtures/official/timeout.json",
+      "publishedSource": "examples/reports/timeout.json",
+      "sha256": "4aa1fd4a1c5f92683c0c2877b560b7ead0186e3365ef2b639103285e5c422ec6",
+      "expected": {
+        "status": "error",
+        "score": 0,
+        "pass": 0,
+        "total": 1
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing <project> placeholders preserved; no new field edits. .env.example is only a relative filename.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "setup",
+      "title": "설정 오류",
+      "description": "점수 미산정과 Git 결과 없음의 합성 예제입니다.",
+      "kind": "synthetic",
+      "source": "tests/fixtures/synthetic/setup-error.json",
+      "publishedSource": null,
+      "sha256": "0c4c14788c984140a538710d2439920b64ba957c7e2a3cf30e71711312074291",
+      "expected": {
+        "status": "error",
+        "score": null,
+        "pass": 0,
+        "total": 0
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing synthetic contract fixture; not an actual run. No field edits.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "cancelled",
+      "title": "평가 취소",
+      "description": "취소 상태와 건너뛴 검사의 합성 예제입니다.",
+      "kind": "synthetic",
+      "source": "tests/fixtures/synthetic/cancelled.json",
+      "publishedSource": null,
+      "sha256": "b4465c37395e9a62e54ee09f730bfdfe4c3f2cfc82db38d1032307f86b7bf3b8",
+      "expected": {
+        "status": "cancelled",
+        "score": 0,
+        "pass": 0,
+        "total": 2
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing synthetic contract fixture; not an actual run. No field edits.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    },
+    {
+      "id": "optional",
+      "title": "선택 검사 실패",
+      "description": "전체 passed와 선택 검사 실패가 공존하는 합성 예제입니다.",
+      "kind": "synthetic",
+      "source": "tests/fixtures/synthetic/optional-failure.json",
+      "publishedSource": null,
+      "sha256": "919eeae69fc6fde270253fe29135e1313d0d70ae15afbf4bb1c53f2a521272f0",
+      "expected": {
+        "status": "passed",
+        "score": 50,
+        "pass": 1,
+        "total": 2
+      },
+      "approval": "approved-by-user",
+      "review": {
+        "date": "2026-10-21",
+        "scope": "Full JSON fields, commands, args, stdout/stderr, paths and diagnostics read locally; personal-path/token/private-key patterns checked",
+        "result": "No sensitive values found within reviewed content and patterns",
+        "anonymization": "Existing synthetic contract fixture; not an actual run. No field edits.",
+        "changes": "None; LF-normalized source text retained",
+        "limitations": "Pattern checks do not prove absence of all possible secrets"
+      }
+    }
+  ]
+}
