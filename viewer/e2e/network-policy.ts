@@ -7,6 +7,9 @@ export function exactLocalReads(engine: string, bodies: readonly Uint8Array[], p
 export function requestKind(r: ObservedRequest, engine: string, assets: ReadonlyMap<string, string>): 'asset' | 'local-blob' | 'reject' {
   if (r.method !== 'GET' || r.body !== null) return 'reject';
   const expected = assets.get(r.url);
+  // Firefox reports this exact built-in favicon as image rather than other.
+  if (engine === 'firefox' && r.url === 'http://127.0.0.1:4173/agent-eval-lab/favicon.svg'
+    && expected === 'other' && r.kind === 'image') return 'asset';
   if (expected && (r.kind === expected || (engine === 'webkit' && expected === 'worker' && r.kind === 'xhr')
     || (expected === 'worker' && r.kind === 'script'))) return 'asset';
   // Only a candidate: the observer must also require exactly one response whose

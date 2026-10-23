@@ -101,7 +101,7 @@ jobs:
           --project="$VIEWER_BROWSER" --grep='production Worker validates.*: normal under project base path$'
           --reporter=line,json --trace=retain-on-failure --output=test-results/viewer-ci/smoke
           2>&1 | tee .ci-results/smoke.log
-      - name: Common compatibility suite (currently 66 tests, no zoom extension)
+      - name: Common compatibility suite (no zoom extension)
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .ci-results/e2e.json
         run: >-

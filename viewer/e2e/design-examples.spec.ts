@@ -1,4 +1,5 @@
 import { expect, test, type Page, type Locator } from '@playwright/test';
+import { installFocusDiagnostics, recordFocusStep, readFocusDiagnostics } from './focus-diagnostics';
 import AxeBuilder from '@axe-core/playwright';
 import { readFileSync } from 'node:fs';
 import manifest from '../samples/manifest.json' with { type: 'json' };
@@ -9,10 +10,12 @@ async function example(page: Page, id: string) {
   await page.getByRole('button', { name: '선택한 예제 열기' }).click();
 }
 async function ready(page: Page) { await expect(page.getByRole('status')).toContainText('계약 검증 성공'); }
-async function tabTo(page: Page, target: Locator) {
+async function tabTo(page: Page, target: Locator, direction: 'Tab' | 'Shift+Tab' = 'Tab', diagnose = false) {
   for (let i=0; i<100; i++) {
     if (await target.evaluate(node => node === document.activeElement)) return;
-    await page.keyboard.press('Tab');
+    if (diagnose) await recordFocusStep(page, 'before', direction);
+    await page.keyboard.press(direction);
+    if (diagnose) await recordFocusStep(page, 'after', direction);
   }
   throw new Error('Keyboard target not reached');
 }
@@ -138,7 +141,10 @@ for(const width of [320,375,768,1440]){
     if(width===375) {await page.locator('#checks').evaluate(n=>n.scrollIntoView({block:'start'}));await page.screenshot({path:'.verification/phase4-light-checks-mobile.png'});}
   });
 }
-test('keyboard-only theme, example, navigation, log search and close; reduced motion',async({page})=>{
+for (const direction of ['Tab', 'Shift+Tab'] as const) {
+test('keyboard-only theme, example, navigation, log search and close; reduced motion' + (direction === 'Tab' ? '' : ' (reverse close)'),async({page}, testInfo)=>{
+  await installFocusDiagnostics(page);
+  try {
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('./');
   await tabTo(page,page.getByLabel('화면 테마'));await expect(page.getByLabel('화면 테마')).toBeFocused();
   await page.keyboard.press('Home');await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');
@@ -153,6 +159,10 @@ test('keyboard-only theme, example, navigation, log search and close; reduced mo
   await expect(page.locator('.search-state')).toContainText('개 일치');
   const focus=await query.evaluate(node=>({width:getComputedStyle(node).outlineWidth,style:getComputedStyle(node).outlineStyle}));expect(focus).toEqual({width:'3px',style:'solid'});
   expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.panel')!).animationName)).toBe('none');
-  await tabTo(page,page.getByRole('button',{name:'닫기',exact:true}));await page.keyboard.press('Enter');
+  await tabTo(page,page.getByRole('button',{name:'닫기',exact:true}), direction, true);await page.keyboard.press('Enter');
   await expect(page.getByLabel('로컬 JSON 파일 선택')).toBeFocused();await expect(page.locator('.dashboard')).toHaveCount(0);
+  } finally {
+    await testInfo.attach('focus-diagnostics', { body: JSON.stringify(await readFocusDiagnostics(page)), contentType: 'application/json' });
+  }
 });
+}
