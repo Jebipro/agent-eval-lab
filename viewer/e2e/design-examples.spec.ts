@@ -142,7 +142,7 @@ for(const width of [320,375,768,1440]){
   });
 }
 for (const direction of ['Tab', 'Shift+Tab'] as const) {
-test('keyboard-only theme, example, navigation, log search and close; reduced motion' + (direction === 'Tab' ? '' : ' (reverse close)'),async({page}, testInfo)=>{
+test('keyboard-only theme, example, navigation, log search; reduced motion' + (direction === 'Tab' ? ' (forward to last summary)' : ' (reverse close)'),async({page}, testInfo)=>{
   await installFocusDiagnostics(page);
   try {
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('./');
@@ -159,8 +159,18 @@ test('keyboard-only theme, example, navigation, log search and close; reduced mo
   await expect(page.locator('.search-state')).toContainText('개 일치');
   const focus=await query.evaluate(node=>({width:getComputedStyle(node).outlineWidth,style:getComputedStyle(node).outlineStyle}));expect(focus).toEqual({width:'3px',style:'solid'});
   expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.panel')!).animationName)).toBe('none');
-  await tabTo(page,page.getByRole('button',{name:'닫기',exact:true}), direction, true);await page.keyboard.press('Enter');
-  await expect(page.getByLabel('로컬 JSON 파일 선택')).toBeFocused();await expect(page.locator('.dashboard')).toHaveCount(0);
+  if (direction === 'Tab') {
+    const lastSummary = page.locator('.check-card').last().locator(':scope > details > summary');
+    await expect(query).toBeFocused();
+    await tabTo(page, lastSummary, 'Tab', true);
+    await expect(lastSummary).toBeFocused();
+  } else {
+    const close = page.getByRole('button', {name:'닫기',exact:true});
+    await tabTo(page, close, 'Shift+Tab', true);
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByLabel('로컬 JSON 파일 선택')).toBeFocused();await expect(page.locator('.dashboard')).toHaveCount(0);
+  }
   } finally {
     await testInfo.attach('focus-diagnostics', { body: JSON.stringify(await readFocusDiagnostics(page)), contentType: 'application/json' });
   }
