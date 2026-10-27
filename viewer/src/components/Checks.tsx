@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { ReadonlyReport } from '../report/types';
 import { LIST_PAGE_SIZE } from '../report/log-search';
 import { booleanText, Field, Status, TextValue } from './Fields';
 import { LogPanel } from './LogPanel';
 import { Pagination } from './Pagination';
+import { EMPTY_CHECK_FILTERS, matchingCheckIndices, type CheckFilters } from '../report/check-filter';
 
 type Check = ReadonlyReport['checks'][number];
 export function Violations({ values }: { values: Check['violations'] }) {
@@ -53,12 +54,33 @@ export function CheckDetails({ check: c }: { check: Check }) {
 }
 export function Checks({ checks }: { checks: ReadonlyReport['checks'] }) {
   const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState<CheckFilters>(EMPTY_CHECK_FILTERS);
+  const indices = useMemo(() => matchingCheckIndices(checks, filters), [checks, filters]);
+  function change(next: CheckFilters) { setFilters(next); setPage(0); }
   return <section id="checks" aria-labelledby="checks-title" className="panel">
     <h2 id="checks-title">Checks · 검사 결과</h2>
     <p>보고서 배열 순서 · {checks.length}개 기록 · 페이지당 최대 {LIST_PAGE_SIZE}개</p>
+    <fieldset className="check-filters">
+      <legend>검사 결과 필터</legend>
+      <label htmlFor="check-query">검사 ID 또는 이름 검색</label>
+      <input id="check-query" type="search" value={filters.query} aria-describedby="check-filter-help"
+        onChange={event => change({ ...filters, query: event.currentTarget.value })} />
+      <p id="check-filter-help" className="hint">대소문자와 공백을 구분하는 일반 문자열 검색입니다. 세 조건을 함께 적용하며 평가 점수·판정·요약은 변경하지 않습니다.</p>
+      <label htmlFor="check-status">검사 상태 필터</label>
+      <select id="check-status" value={filters.status} onChange={event => change({ ...filters, status: event.currentTarget.value as CheckFilters['status'] })}>
+        <option value="all">전체</option><option value="pass">통과 (pass)</option><option value="fail">실패 (fail)</option><option value="error">오류 (error)</option><option value="skipped">건너뜀 (skipped)</option>
+      </select>
+      <label htmlFor="check-required">필수 여부 필터</label>
+      <select id="check-required" value={filters.required} onChange={event => change({ ...filters, required: event.currentTarget.value as CheckFilters['required'] })}>
+        <option value="all">전체</option><option value="required">필수 (required)</option><option value="optional">선택 (optional)</option>
+      </select>
+      <button type="button" onClick={() => change(EMPTY_CHECK_FILTERS)}>검사 필터 초기화</button>
+    </fieldset>
+    <p aria-live="polite" aria-atomic="true" className="check-filter-count">필터 결과 {indices.length}개 / 전체 검사 기록 {checks.length}개 · 전체 평가 검사 수는 원본 Overview 요약을 확인하세요.</p>
     {!checks.length && <p>검사 기록 없음</p>}
-    <Pagination label="검사 목록" page={page} count={checks.length} size={LIST_PAGE_SIZE} onChange={setPage} />
-    {checks.slice(page * LIST_PAGE_SIZE, (page + 1) * LIST_PAGE_SIZE).map((check, offset) =>
-      <CheckCard key={page * LIST_PAGE_SIZE + offset} check={check} index={page * LIST_PAGE_SIZE + offset} />)}
+    {checks.length > 0 && indices.length === 0 && <p>조건에 맞는 검사 결과가 없습니다. 검색어나 필터를 변경하거나 초기화하세요.</p>}
+    <Pagination label="검사 목록" page={page} count={indices.length} size={LIST_PAGE_SIZE} onChange={setPage} />
+    {indices.slice(page * LIST_PAGE_SIZE, (page + 1) * LIST_PAGE_SIZE).map(index =>
+      <CheckCard key={index} check={checks[index]!} index={index} />)}
   </section>;
 }

@@ -4,7 +4,8 @@ import { importError } from '../import/errors';
 import { droppedFiles, selectedFiles, type FileDecision } from '../import/file-input';
 import { acceptanceView, displayText } from '../report/view-model';
 import { importReducer, recovery } from './import-state';
-import { Dashboard, ResultBoundary } from '../components/Dashboard';
+import { ResultBoundary } from '../components/Dashboard';
+import { ComparisonWorkspace } from '../components/ComparisonWorkspace';
 import { ThemeControl } from '../components/ThemeControl';
 import { ExamplePicker } from '../components/ExamplePicker';
 import { candidateById, exampleKind, loadExampleText } from '../examples/catalog';
@@ -130,7 +131,7 @@ export function App() {
     {state.kind === 'empty' && <div className="empty-state"><h2>아직 열린 보고서가 없습니다</h2><p>JSON 파일을 선택하거나 체험 예제를 열어 시작하세요.</p><p className="hint">보고서를 닫거나 페이지를 새로고침하면 화면의 데이터가 해제됩니다.</p></div>}
     <div className="reading-note"><p className="hint">파일명·프로젝트명·오류 위치의 긴 문자열은 줄이고 제어 문자는 이스케이프로 표시합니다. 원본 JSON은 수정하지 않습니다.</p>
     <p className="hint">계약 검증 성공은 평가 PASS를 뜻하지 않습니다. 실패·오류·취소 결과도 유효한 보고서로 열 수 있습니다. 평가 내용의 진실성은 검증하지 않습니다.</p></div>
-    {state.kind === 'ready' && <ResultBoundary key={state.id}><Dashboard report={state.report} /></ResultBoundary>}
+    {state.kind === 'ready' && <ResultBoundary key={state.id}><ComparisonWorkspace report={state.report} /></ResultBoundary>}
     </main>
   </>;
 }
